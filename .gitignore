@@ -1,0 +1,16 @@
+/go-blog
+
+# Test / coverage output
+*.test
+*.out
+coverage.*
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+#env
+.env
