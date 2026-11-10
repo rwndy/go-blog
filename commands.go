@@ -7,10 +7,6 @@ type command struct {
 	args []string
 }
 
-type login struct {
-	username string
-}
-
 type commands struct {
 	registeredCommands map[string]func(*state, command) error
 }
