@@ -50,6 +50,7 @@ func main() {
 	cmds.register("users", handleGetUsers)
 	cmds.register("agg", handleFeedRSS)
 	cmds.register("addfeed", handlerAddFeed)
+	cmds.register("feeds", handlerGetFeeds)
 
 	if len(os.Args) < 2 {
 		fmt.Println("not enough arguments provided")
