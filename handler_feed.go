@@ -18,7 +18,7 @@ func handleFeedRSS(s *state, cmd command) error {
 	return nil
 }
 
-func handlerAddFeed(s *state, cmd command) error {
+func handlerAddFeed(s *state, cmd command, user database.User) error {
 	if len(cmd.args) != 2 {
 		return fmt.Errorf("usage: %s <name> <url>", cmd.name)
 	}
@@ -26,13 +26,6 @@ func handlerAddFeed(s *state, cmd command) error {
 	url := cmd.args[1]
 	id := uuid.New()
 	now := time.Now()
-
-	// TODO 1: ambil current user dari DB
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-
-	if err != nil {
-		return fmt.Errorf("couldn't get the user: %w", err)
-	}
 
 	// TODO 2: panggil CreateFeed
 	feed, err := s.db.CreateFeed(context.Background(), database.CreateFeedParams{

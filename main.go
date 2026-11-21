@@ -49,10 +49,10 @@ func main() {
 	cmds.register("reset", handlerReset)
 	cmds.register("users", handleGetUsers)
 	cmds.register("agg", handleFeedRSS)
-	cmds.register("addfeed", handlerAddFeed)
+	cmds.register("addfeed", middlewareLoggedIn(handlerAddFeed))
 	cmds.register("feeds", handlerGetFeeds)
-	cmds.register("follow", handleFollow)
-	cmds.register("following", handleFollowing)
+	cmds.register("follow", middlewareLoggedIn(handleFollow))
+	cmds.register("following", middlewareLoggedIn(handleFollowing))
 
 	if len(os.Args) < 2 {
 		fmt.Println("not enough arguments provided")

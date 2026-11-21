@@ -9,19 +9,13 @@ import (
 	"github.com/rwndy/go-blog/internal/database"
 )
 
-func handleFollow(s *state, cmd command) error {
+func handleFollow(s *state, cmd command, user database.User) error {
 	if len(cmd.args) != 1 {
 		return fmt.Errorf("usage: %s <url>", cmd.name)
 	}
 
 	feedUrl := cmd.args[0]
 
-	currentUser := s.cfg.CurrentUserName
-
-	user, err := s.db.GetUser(context.Background(), currentUser)
-	if err != nil {
-		return fmt.Errorf("couldn't get current user: %w", err)
-	}
 	feed, err := s.db.GetFeedByURL(context.Background(), feedUrl)
 
 	if err != nil {
@@ -43,14 +37,8 @@ func handleFollow(s *state, cmd command) error {
 	return nil
 }
 
-func handleFollowing(s *state, cmd command) error {
-	username := s.cfg.CurrentUserName
+func handleFollowing(s *state, cmd command, user database.User) error {
 
-	user, err := s.db.GetUser(context.Background(), username)
-
-	if err != nil {
-		return fmt.Errorf("couldn't get current user: %w", err)
-	}
 	follows, err := s.db.GetFeedFollowsForUser(context.Background(), user.ID)
 
 	if err != nil {
